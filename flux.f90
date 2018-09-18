@@ -16,8 +16,7 @@ contains
     call get_f(nu, ur, fr)
 
     ! Get the speed in the left and right cells
-    call get_v(nu, v_l, ul)
-    call get_v(nu, v_r, ur)
+    ! TODO call of con2prims
 
     ! Get the sound speeds
     call get_cs(nu, cs_l, ul)

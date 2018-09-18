@@ -22,9 +22,15 @@ contains
   ! Determine the sound speed in the cell adjacent
   subroutine get_cs(nu, cs, u)
     integer :: nu
-    real :: cs
-    real :: u(nu)
+    real :: cs, g
+    real :: u(nu), p(nu)
 
+    ! TODO set gamma in setup file
+    g = 5./3.
+
+    call cons2prims(u, p, nu, 0)
+
+    cs = (g-1)*p(1)*p(3)
   end subroutine get_cs
 
   ! ======= CONVERSIONS BETWEEN CONSERVED & PRIMITIVES =========
