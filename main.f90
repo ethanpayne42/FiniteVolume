@@ -1,6 +1,7 @@
 program main
   use grid, only: set_grid, set_dt
   use init, only: set_init
+  use output, only: write_output
   implicit none
 
   ! Instantiate the x and size
@@ -27,9 +28,14 @@ program main
 
   call set_dt(dt, dx, u, cou, nx, nu)
 
-  !call write_output(istep,nx ,x, u, t, nu)
+  ! Write the output of the initial conditions
+  call write_output(istep, nu, nx ,x, u, t)
 
-  print*,dt
+  ! Loop over the scheme
+  do while(t < tmax)
+    t = t+dt
+    istep = istep +1
+    !call step_one
 
-
+  end do
 end program main
