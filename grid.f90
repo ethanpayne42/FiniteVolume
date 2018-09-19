@@ -12,14 +12,16 @@ contains
 
     ! TODO dont have to change here, set config file?
     ! Set up spacing parameters
-    nx = 100
-    lx = 1.
-    dx = 1./(nx+1)
+    nx = 1000 !100
+    lx = 2. !1
+    dx = lx/(nx+1)
 
     allocate(x(0:nx))
 
     ! Create the array of x values for the grid of evaluation
+    !x = (/(i*dx, i=0,nx)/)
     x = (/(i*dx, i=0,nx)/)
+    x = x - lx/2
   end subroutine set_grid
 
   ! Subroutine for the calculation of the timestep
@@ -30,6 +32,7 @@ contains
     real :: cs
     real :: lambda = 0.
     real :: lambda_j
+    real :: max_v = 0.
 
     call cons2prims(u, p, nu, nx)
 
@@ -38,9 +41,12 @@ contains
     ! than the previous larger value, make it the new one
     do j = 0,nx
         call get_cs(nu, cs, u(:,j))
-        lambda_j = abs(p(2,j)) + cs
+        lambda_j = abs(p(2,j)) + abs(cs) !TODO put eigenstuff together
         if (lambda_j > lambda ) then
           lambda = lambda_j
+        end if
+        if (abs(p(2,j)) > max_v) then
+          max_v = abs(p(2,j))
         end if
     end do
 

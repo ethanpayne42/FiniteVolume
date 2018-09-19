@@ -2,7 +2,7 @@ FC=gfortran
 FFLAGS=-O3 -Wall -Wextra -fdefault-real-8 -fcheck=all
 
 SRC= constants.f90 physics.f90 flux.f90 \
-grid.f90 init.f90 \
+grid.f90 init.f90 step.f90 \
 output.f90 main.f90
 
 OBJ=${SRC:.f90=.o}
