@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-data = np.genfromtxt('data/output_00300.dat')
+data = np.genfromtxt('data/output_01080.dat')
 
 x = data[1:,0]
 rho = data[1:,1]

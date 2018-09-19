@@ -44,8 +44,6 @@ contains
       call get_flux(u0,u1,fp1, nu, lambda_r)
       call get_flux(un1,u0,fn1, nu, lambda_l)
 
-      lambda = max(lambda_r,lambda_l)
-
       u(:,j) = u0 - (dt/dx)*(fp1-fn1)
     end do
   end subroutine step_one

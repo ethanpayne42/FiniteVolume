@@ -13,7 +13,7 @@ program main
   ! Set up iteration parameters and time and step data
   real :: dt, dtnew
   real :: t = 0.
-  real :: tmax = 0.2
+  real :: tmax = 2.
   integer :: istep = 0
 
   ! Set courant factor
@@ -38,8 +38,7 @@ program main
     istep = istep +1
     call step_one(u, up, dx, dt, nx, nu)
     call write_output(istep, nu, nx ,x, u, t)
-
     call set_dt(dt, dx, u, cou, nx, nu)
-
   end do
+
 end program main
