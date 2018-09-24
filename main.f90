@@ -13,7 +13,7 @@ program main
   ! Set up iteration parameters and time and step data
   real :: dt, dtnew
   real :: t = 0.
-  real :: tmax = 2.
+  real :: tmax = 0.2
   integer :: istep = 0
 
   ! Set courant factor

@@ -22,17 +22,17 @@ contains
     allocate(p(nu,0:nx))
 
     ! TODO choice or setup file?
-    p(1,:) = 1 + A*sin(2*pi*x) ! Density initial condition (IC)
-    p(2,:) = A*sin(2*pi*x) ! velocity IC
-    p(3,:) = 1./(g*(g-1)) +A/g*sin(2*pi*x) ! energy IC
+    ! p(1,:) = 1 + A*sin(2*pi*x) ! Density initial condition (IC)
+    ! p(2,:) = A*sin(2*pi*x) ! velocity IC
+    ! p(3,:) = 1./(g*(g-1)) +A/g*sin(2*pi*x) ! energy IC
 
-    ! do j=0,nx
-    !   if ( x(j)<0.5 .and. x(j)>-0.5) then
-    !     p(:,j) = [1.,0.,1./(g-1)]
-    !   else
-    !     p(:,j) = [0.125, 0.0, 0.1/(0.125*(g-1))]
-    !   end if
-    ! end do
+    do j=0,nx
+      if ( x(j)<0.5 .and. x(j)>-0.5) then
+        p(:,j) = [1.,0.,1./(g-1)]
+      else
+        p(:,j) = [0.125, 0.0, 0.1/(0.125*(g-1))]
+      end if
+    end do
 
     ! Converts the primitive array of p = (rho, velocity, eps)
     ! to the conserved quantities

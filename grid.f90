@@ -13,15 +13,15 @@ contains
     ! TODO dont have to change here, set config file?
     ! Set up spacing parameters
     nx = 1000 !100
-    lx = 2. !1
+    lx = 2.0
     dx = lx/(nx+1)
 
     allocate(x(0:nx))
 
     ! Create the array of x values for the grid of evaluation
-    x = (/(i*dx, i=0,nx)/)
     !x = (/(i*dx, i=0,nx)/)
-    !x = x - lx/2
+    x = (/(i*dx, i=0,nx)/)
+    x = x - lx/2
   end subroutine set_grid
 
   ! Subroutine for the calculation of the timestep
