@@ -7,13 +7,13 @@ program main
 
   ! Instantiate the x and size
   real, allocatable :: x(:)
-  integer :: nx
+  integer :: nx, choice
   real :: dx
 
   ! Set up iteration parameters and time and step data
-  real :: dt, dtnew
+  real :: dt
   real :: t = 0.
-  real :: tmax = 0.2
+  real :: tmax = 0.
   integer :: istep = 0
 
   ! Set courant factor
@@ -24,8 +24,20 @@ program main
   real, allocatable :: u(:,:), up(:,:)
   integer :: nu
 
-  call set_grid(x, dx, nx)
-  call set_init(u, up, x, nx, nu)
+  print*,'Select the problem to be solved:'
+  print*,'Density wave to shock    (1)'
+  print*,'Sod shock tube           (2)'
+  read*,choice
+
+  select case (choice)
+    case(1)
+      tmax = 2.
+    case(2)
+      tmax = 0.2
+  end select
+
+  call set_grid(x, dx, nx, choice)
+  call set_init(u, up, x, nx, nu, choice)
 
   call set_dt(dt, dx, u, cou, nx, nu)
 

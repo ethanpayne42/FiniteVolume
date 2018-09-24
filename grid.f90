@@ -5,23 +5,33 @@ module grid
 contains
 
   ! Creates the grid of the x coordinates
-  subroutine set_grid(x, dx, nx)
+  subroutine set_grid(x, dx, nx, choice)
     real, allocatable :: x(:)
     real :: dx, lx
-    integer :: nx, i
+    integer :: nx, i, choice
 
-    ! TODO dont have to change here, set config file?
     ! Set up spacing parameters
-    nx = 1000 !100
-    lx = 2.0
+    select case (choice)
+      case(1)
+        nx = 100
+        lx = 1.
+      case(2)
+        nx = 1000
+        lx = 2.0
+    end select
     dx = lx/(nx+1)
 
     allocate(x(0:nx))
 
     ! Create the array of x values for the grid of evaluation
-    !x = (/(i*dx, i=0,nx)/)
-    x = (/(i*dx, i=0,nx)/)
-    x = x - lx/2
+    select case (choice)
+      case(1)
+        x = (/(i*dx, i=0,nx)/)
+      case(2)
+        x = (/(i*dx, i=0,nx)/)
+        x = x - lx/2
+    end select
+
   end subroutine set_grid
 
   ! Subroutine for the calculation of the timestep

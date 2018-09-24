@@ -5,8 +5,8 @@ module init
 
 contains
 
-  subroutine set_init(u, up, x, nx, nu)
-    integer :: nu, nx, j
+  subroutine set_init(u, up, x, nx, nu, choice)
+    integer :: nu, nx, j, choice
     real :: A, g
     real, allocatable :: u(:,:), up(:,:)
     real :: x(0:nx)
@@ -21,18 +21,23 @@ contains
     allocate(up(nu,0:nx))
     allocate(p(nu,0:nx))
 
-    ! TODO choice or setup file?
-    ! p(1,:) = 1 + A*sin(2*pi*x) ! Density initial condition (IC)
-    ! p(2,:) = A*sin(2*pi*x) ! velocity IC
-    ! p(3,:) = 1./(g*(g-1)) +A/g*sin(2*pi*x) ! energy IC
+    ! Wave initial conditions
+    select case (choice)
+      case(1)
+        p(1,:) = 1 + A*sin(2*pi*x) ! Density initial condition (IC)
+        p(2,:) = A*sin(2*pi*x) ! velocity IC
+        p(3,:) = 1./(g*(g-1)) +A/g*sin(2*pi*x) ! energy IC
 
-    do j=0,nx
-      if ( x(j)<0.5 .and. x(j)>-0.5) then
-        p(:,j) = [1.,0.,1./(g-1)]
-      else
-        p(:,j) = [0.125, 0.0, 0.1/(0.125*(g-1))]
-      end if
-    end do
+      ! Sod shock initial conditions
+      case(2)
+        do j=0,nx
+          if ( x(j)<0.5 .and. x(j)>-0.5) then
+            p(:,j) = [1.,0.,1./(g-1)]
+          else
+            p(:,j) = [0.125, 0.0, 0.1/(0.125*(g-1))]
+          end if
+        end do
+    end select
 
     ! Converts the primitive array of p = (rho, velocity, eps)
     ! to the conserved quantities
