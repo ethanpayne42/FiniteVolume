@@ -9,12 +9,14 @@ contains
     integer :: nu, nx, j, choice
     real :: A, g
     real, allocatable :: u(:,:), up(:,:)
-    real :: x(0:nx)
+    real :: x(0:nx), vec(2)
     real, allocatable :: p(:,:)
 
-    ! TODO put in setup file
-    nu = 3
-    A = 1.e-1
+    ! open setup file to retrieve nu and A
+    open(1,file='config.txt')
+    read(1,*), nu, A
+
+    print*,vec
     g = 5./3.
 
     allocate(u(nu,0:nx))
