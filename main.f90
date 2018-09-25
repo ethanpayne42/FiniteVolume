@@ -18,7 +18,7 @@ program main
 
   ! Set courant factor
   ! TODO put in setup
-  real :: cou = 0.5
+  real :: cou
 
   ! Instantiate the u array and size
   real, allocatable :: u(:,:), up(:,:)
@@ -28,6 +28,9 @@ program main
   print*,'Density wave to shock    (1)'
   print*,'Sod shock tube           (2)'
   read*,choice
+
+  print*,'Input the Courant Factor'
+  read*,cou
 
   select case (choice)
     case(1)

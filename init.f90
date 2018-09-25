@@ -9,14 +9,10 @@ contains
     integer :: nu, nx, j, choice
     real :: A, g
     real, allocatable :: u(:,:), up(:,:)
-    real :: x(0:nx), vec(2)
+    real :: x(0:nx)
     real, allocatable :: p(:,:)
 
-    ! open setup file to retrieve nu and A
-    open(1,file='config.txt')
-    read(1,*), nu, A
-
-    print*,vec
+    nu = 3
     g = 5./3.
 
     allocate(u(nu,0:nx))
@@ -26,6 +22,8 @@ contains
     ! Wave initial conditions
     select case (choice)
       case(1)
+        print*,'input value for A'
+        read*,A
         p(1,:) = 1 + A*sin(2*pi*x) ! Density initial condition (IC)
         p(2,:) = A*sin(2*pi*x) ! velocity IC
         p(3,:) = 1./(g*(g-1)) +A/g*sin(2*pi*x) ! energy IC

@@ -9,7 +9,7 @@ from matplotlib import animation
 
 # First set up the figure, the axis, and the plot element we want to animate
 fig = plt.figure()
-ax = plt.axes(xlim=(0, 1), ylim=(0.6,1.4))
+ax = plt.axes(xlim=(0, 1), ylim=(0.0,1.4))
 line, = ax.plot([], [], lw=2)
 
 # initialization function: plot the background of each frame
@@ -20,16 +20,23 @@ def init():
 # animation function.  This is called sequentially
 def animate(i):
 
-    data = np.genfromtxt(file_str(i))
+    if i%50 == 0:
+        print(i)
 
-    x = data[1:,0]
-    y = data[1:,1]
+    with open(file_str(i), 'rt') as f:
+                # Read in a text file
+                time = np.float(f.readline())
+
+                data = np.loadtxt(f)
+
+    x = data[0:,0]
+    y = data[0:,1]
     line.set_data(x, y)
-    ax.set_title(r'$t={}$'.format(data[0,0]))
+    ax.set_title(r'$t={}$'.format(time))
     return line,
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
 anim = animation.FuncAnimation(fig, animate, init_func=init,
-                               frames=2000, interval=20, blit=True)
+                               frames=580, interval=5, blit=True)
 
 anim.save('basic_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])

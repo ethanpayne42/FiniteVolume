@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = 'data/output_00400.dat'
+import sys
+
+ind = sys.argv[1]
+
+filename = 'data/output_00{}.dat'.format(ind)
 
 with open(filename, 'rt') as f:
             # Read in a text file
@@ -17,6 +21,7 @@ ps = data[:,4]
 
 
 plt.xlim(0,1)
+plt.title('time={}'.format(time))
 
 plt.plot(x, rho)
 plt.show()
